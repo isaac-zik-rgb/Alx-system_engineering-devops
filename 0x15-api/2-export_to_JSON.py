@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """Exports to-do list information for a given employee ID to JSON format."""
 import json
-import requests
 import sys
+from security import safe_requests
 
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
     user_id = sys.argv[1]
-    user_response = requests.get(url + "users/{}".format(user_id))
-    todos = requests.get(url + "todos", params={"userId": user_id}).json()
+    user_response = safe_requests.get(url + "users/{}".format(user_id))
+    todos = safe_requests.get(url + "todos", params={"userId": user_id}).json()
     user = user_response.json()
     user_id = user.get("id")
     username = user.get("username")

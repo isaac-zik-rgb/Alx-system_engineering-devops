@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """a function that queries the Reddit API and prints the titles of the first
 10 hot posts listed for a given subreddit."""
-import requests
+from security import safe_requests
 
 
 def top_ten(subreddit):
     """a function that queries the Reddit API and prints the titles"""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     header = {'User-Agent': 'PythonScript/3.0'}
-    response = requests.get(url, header)
+    response = safe_requests.get(url, header)
     data = response.json()
     if response.status_code == 200:
         posts = data.get('data', {}).get('children', [])

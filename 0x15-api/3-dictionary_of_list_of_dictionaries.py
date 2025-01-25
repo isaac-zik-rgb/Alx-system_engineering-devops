@@ -2,6 +2,7 @@
 """Exports to-do list information of all employees to JSON format."""
 import json
 import requests
+from security import safe_requests
 
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
@@ -13,6 +14,6 @@ if __name__ == "__main__":
                 "task": t.get("title"),
                 "completed": t.get("completed"),
                 "username": u.get("username")
-            } for t in requests.get(url + "todos",
+            } for t in safe_requests.get(url + "todos",
                                     params={"userId": u.get("id")}).json()]
             for u in users}, jsonfile)

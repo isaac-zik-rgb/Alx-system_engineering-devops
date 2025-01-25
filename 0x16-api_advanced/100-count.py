@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """a recursive function that queries the Reddit API"""
-
-import requests
+from security import safe_requests
 
 
 def count_words(subreddit, word_list, found_list=[], after=None):
@@ -9,7 +8,7 @@ def count_words(subreddit, word_list, found_list=[], after=None):
     '''
     user_agent = {'User-agent': 'test45'}
     url = f"http://www.reddit.com/r/{subreddit}/hot.json?after={after}"
-    posts = requests.get(url, headers=headers)
+    posts = safe_requests.get(url, headers=headers)
     if after is None:
         word_list = [word.lower() for word in word_list]
 
